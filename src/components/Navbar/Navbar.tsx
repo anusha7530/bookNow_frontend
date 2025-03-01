@@ -7,13 +7,13 @@ import logo from "../../../public/logo.png";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center px-6 md:px-10 py-4 bg-gray-800 text-white">
+    <nav className="flex justify-between items-center px-6 md:px-10 py-2 bg-gray-800 text-white">
       <div className="flex items-center gap-4 w-full md:w-auto">
         <Image
           src={logo}
           alt="logo"
           width={200}
-          height={150}
+          height={80}
         />
         <div className="hidden md:flex items-center gap-2 bg-gray-700 px-4 py-2 rounded-lg">
           <BiSearch className="text-lg" />
