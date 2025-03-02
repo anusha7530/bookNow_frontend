@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
-import img2 from "../../../public/slider/img3.jpg";
-import img3 from "../../../public/slider/img2.png";
 
 const HomeSlider = () => {
-  const banners = [
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [banners, setBanners] = useState([
     {
-      imgUrl: img3,
+        imgUrl: 'https://assets-in.bmscdn.com/promotions/cms/creatives/1693561351496_motogpsepdesktop.jpg'
     },
     {
-      imgUrl: img2,
+        imgUrl: 'https://assets-in.bmscdn.com/promotions/cms/creatives/1693472198837_iccdesktop.jpg'
     }
-  ];
+])
 
+const width = window.innerWidth;
+const height = window.innerHeight;
   return (
     <Swiper
       cssMode={true}
@@ -26,7 +28,7 @@ const HomeSlider = () => {
       mousewheel={true}
       keyboard={true}
       modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-      className="mySwiper bg-gray-800 max-h-96"
+      className="mySwiper"
     >
       {banners.map((banner, index) => {
         return (
@@ -34,7 +36,8 @@ const HomeSlider = () => {
             <Image
               src={banner.imgUrl}
               alt="ads"
-              className="object-cover w-full h-full"
+              width={width} height={height / 2}
+              className="object-cover"
             />
           </SwiperSlide>
         );
