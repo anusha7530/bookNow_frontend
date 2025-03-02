@@ -11,10 +11,10 @@ const HomeSlider = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [banners, setBanners] = useState([
     {
-        imgUrl: 'https://assets-in.bmscdn.com/promotions/cms/creatives/1693561351496_motogpsepdesktop.jpg'
+      imgUrl: 'https://assets-in.bmscdn.com/promotions/cms/creatives/1740735555492_cinepolisweb.jpg'
     },
     {
-        imgUrl: 'https://assets-in.bmscdn.com/promotions/cms/creatives/1693472198837_iccdesktop.jpg'
+      imgUrl: 'https://assets-in.bmscdn.com/promotions/cms/creatives/1740748451000_marlolla1240x300.jpg'
     }
 ])
 

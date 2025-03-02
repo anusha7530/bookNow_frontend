@@ -35,7 +35,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link href="/" className="hidden md:inline-block bg-[#d00000] px-4 py-2 rounded-lg">
+          <Link href="/" className="hidden md:inline-block bg-[#b92d14e8] px-4 py-2 rounded-lg">
             Logout
           </Link>
           <Link href="/" className="flex items-center gap-1">
