@@ -4,7 +4,7 @@ import React from "react";
 import DatePicker from "react-horizontal-datepicker";
 import Link from "next/link";
 
-const page = () => {
+const Buytickets = () => {
   const pathname = usePathname();
   const movie = {
     moviename: "Jawan",
@@ -82,4 +82,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Buytickets;
