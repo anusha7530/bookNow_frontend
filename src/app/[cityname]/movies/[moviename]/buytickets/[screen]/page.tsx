@@ -3907,7 +3907,18 @@ const SelectScreen = () => {
   const [selectedSeats, setSelectedSeats] = React.useState<any[]>([]);
 
   const selectdeselectseat = (seat: any) => {
-   
+    const isselected = selectedSeats.find((s: any) => {
+      return (
+        s.row === seat.row && s.seat_id === seat.seat_id && s.col === seat.col
+      );
+    });
+    if (isselected) {
+      setSelectedSeats(
+        selectedSeats.filter((s: any) => s.seat_id !== seat.seat_id)
+      );
+    } else {
+      setSelectedSeats([...selectedSeats, seat]);
+    }
   };
 
   const generateSeatLayout = () => {
