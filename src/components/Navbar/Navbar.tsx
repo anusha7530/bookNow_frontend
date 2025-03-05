@@ -1,20 +1,19 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import { BiUserCircle, BiSearch } from "react-icons/bi";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
+import LocationPopup from "@/app/popups/location/LocationPopup";
 
 const Navbar = () => {
+  const [showLocationPopup, setShowLocationPopup] =
+    React.useState<boolean>(false);
   return (
     <nav className="flex justify-between items-center px-6 md:px-10 py-2 bg-gray-800 text-white">
       <div className="flex items-center gap-4 w-full md:w-auto">
-        <Image
-          src={logo}
-          alt="logo"
-          width={200}
-          height={80}
-        />
+        <Image src={logo} alt="logo" width={200} height={80} />
         <div className="hidden md:flex items-center gap-2 bg-gray-700 px-4 py-2 rounded-lg">
           <BiSearch className="text-lg" />
           <input
@@ -26,7 +25,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-6">
-        <p className="flex items-center cursor-pointer">
+        <p className="flex items-center cursor-pointer" onClick={() => setShowLocationPopup(true)}>
           Mumbai <RiArrowDropDownFill className="text-xl" />
         </p>
 
@@ -35,7 +34,10 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link href="/" className="hidden md:inline-block bg-[#b92d14e8] px-4 py-2 rounded-lg">
+          <Link
+            href="/"
+            className="hidden md:inline-block bg-[#b92d14e8] px-4 py-2 rounded-lg"
+          >
             Logout
           </Link>
           <Link href="/" className="flex items-center gap-1">
@@ -43,6 +45,9 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
+      {showLocationPopup && (
+        <LocationPopup setShowLocationPopup={setShowLocationPopup} />
+      )}
     </nav>
   );
 };
