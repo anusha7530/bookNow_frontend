@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../../public/logo.png";
+import { toast } from "react-toastify";
 
 interface FormData {
   email: string;
@@ -39,6 +40,41 @@ export default function Signin() {
       setErrors(validationErrors);
       return;
     }
+
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/login`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+      credentials: 'include'
+  })
+      .then((res) => {
+          return res.json();
+      })
+      .then(async (response) => {
+          if (response.ok) {
+              toast(response.message, {
+                  type: 'success',
+                  position: 'top-right',
+                  autoClose: 2000
+              })
+              window.location.href = "/" 
+          } else {
+              toast(response.message, {
+                  type: 'error',
+                  position: 'top-right',
+                  autoClose: 2000
+              });
+          }
+      })
+      .catch((error) => {
+          toast(error.message, {
+              type: 'error',
+              position: 'top-right',
+              autoClose: 2000
+          });
+      })
   };
 
   return (
