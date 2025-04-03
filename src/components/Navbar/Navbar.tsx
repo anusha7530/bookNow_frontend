@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { BiUserCircle, BiSearch } from "react-icons/bi";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import LocationPopup from "@/app/popups/location/LocationPopup";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const [showLocationPopup, setShowLocationPopup] =
-    React.useState<boolean>(false);
-  const [user, setUser] = React.useState<any>(null);
-  const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
+  const [showLocationPopup, setShowLocationPopup] = useState<boolean>(false);
+  const [user, setUser] = useState<any>(null);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const getuser = async () => {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/getuser`, {
@@ -62,88 +63,71 @@ const Navbar = () => {
       });
   };
 
-  // const checkLogin = async () => {
-  //   // let authToken = await getCookie('authToken')
-  //   // let refreshToken = await getCookie('refreshToken')
-
-  //   // console.log(authToken, refreshToken)
-  //   fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/checklogin`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     credentials: "include",
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       if (response.ok) {
-  //         setLoggedIn(true);
-  //       } else {
-  //         setLoggedIn(false);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setLoggedIn(false);
-  //     });
-  // };
-
   useEffect(() => {
-    // checkLogin();
     getuser();
   }, []);
   return (
     <nav className="flex justify-between items-center px-6 md:px-10 py-2 bg-gray-800 text-white">
-      <div className="flex items-center gap-4 w-full md:w-auto">
-        <Image src={logo} alt="logo" width={200} height={80} />
-        <div className="hidden md:flex items-center gap-2 bg-gray-700 px-4 py-2 rounded-lg">
-          <BiSearch className="text-lg" />
-          <input
-            type="text"
-            placeholder="Search for a Movie"
-            className="bg-transparent outline-none placeholder-gray-100 text-white"
-          />
-        </div>
-      </div>
+      <div className="container mx-auto flex justify-between items-center">
+        <Link href="/">
+          {" "}
+          <Image src={logo} alt="logo" width={200} height={80} />
+        </Link>
 
-      <div className="flex items-center gap-6">
-        <p
-          className="flex items-center cursor-pointer"
-          onClick={() => setShowLocationPopup(true)}
+        {/* Mobile Menu Button */}
+        <button
+          className="lg:hidden text-white focus:outline-none"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          {user ? user.city : "Select City"}
-          <RiArrowDropDownFill className="text-xl" />
-        </p>
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
 
-        <div className="md:hidden">
-          <BiSearch className="text-xl" />
-        </div>
-
-        <div className="flex items-center gap-3">
-          {
-            loggedIn ? 
-            <button className="hidden md:inline-block bg-[#b92d14e8] px-4 py-2 rounded-lg" onClick={handleLogout}>
-              Logout
-            </button>
-            :
-            <Link
-            href="/auth/signin"
-            className="hidden md:inline-block bg-[#b92d14e8] px-4 py-2 rounded-lg"
+        <div
+          className={`z-10 flex flex-col lg:flex lg:flex-row gap-6 lg:items-center ${
+            isOpen ? "block" : "hidden"
+          } absolute lg:static top-16 left-0 right-0 bg-gray-900 lg:bg-transparent p-4 lg:p-0`}
+        >
+          <div className="flex items-center gap-2 bg-gray-700 px-4 py-2 rounded-lg">
+            <BiSearch className="text-lg" />
+            <input
+              type="text"
+              placeholder="Search for a Movie"
+              className="bg-transparent outline-none placeholder-gray-100 text-white"
+            />
+          </div>
+          <p
+            className="flex items-center cursor-pointer px-4 py-2 border-2 border-[#b92d14e8] rounded-lg"
+            onClick={() => setShowLocationPopup(true)}
           >
-            Login
-          </Link>
-          }
-          <Link href="/" className="flex items-center gap-1">
-            <BiUserCircle className="text-2xl" />
-          </Link>
+            {user ? user.city : "Select City"}
+            <RiArrowDropDownFill className="text-xl" />
+          </p>
+
+          <div className="block lg:flex items-center gap-3">
+            {loggedIn ? (
+              <button
+                className="bg-[#b92d14e8] px-4 py-2 rounded-lg"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                href="/auth/signin"
+                className="bg-[#b92d14e8] px-4 py-2 rounded-lg"
+              >
+                Login
+              </Link>
+            )}
+            <Link href="/" className="hidden lg:flex items-center gap-1">
+              <BiUserCircle className="text-2xl" />
+            </Link>
+          </div>
         </div>
+        {showLocationPopup && (
+          <LocationPopup setShowLocationPopup={setShowLocationPopup} />
+        )}
       </div>
-      {showLocationPopup && (
-        <LocationPopup setShowLocationPopup={setShowLocationPopup} />
-      )}
     </nav>
   );
 };
