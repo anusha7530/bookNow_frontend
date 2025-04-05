@@ -5,10 +5,10 @@ export interface MovieCardType {
     _id: string;
     rating: number;
     genre: string[];
-    // description: string;
-    // duration: number;
-    // cast: CelebrityCardType[];
-    // crew: CelebrityCardType[];
+    description: string;
+    duration: number;
+    cast: CelebrityCardType[];
+    crew: CelebrityCardType[];
 }
 export interface CelebrityCardType{
     name: string;

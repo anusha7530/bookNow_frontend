@@ -1,16 +1,16 @@
 import React from "react";
-import { MovieCardType } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { BsFillStarFill } from "react-icons/bs";
 
-const MovieCard = (data: MovieCardType) => {
+const MovieCard = (data: any) => {
   const router = useRouter();
-  const city = "mumbai";
-  const { title, rating, genre, portraitImgUrl } = data;
+  const {_id, title, genre, rating, portraitImgUrl } = data.movie;
+  const city  = data?.user?.city;
+
   return (
     <div
       className="cursor-pointer group rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gray-800 text-white"
-      onClick={() => router.push(`/${city}/movies/${title}`)}
+      onClick={() => router.push(`/${city}/movies/${_id}`)}
     >
       <div
         className="h-64 bg-cover bg-center relative"

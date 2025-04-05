@@ -28,7 +28,6 @@ const Navbar = () => {
       })
       .then((response) => {
         if (response.ok) {
-          console.log(response);
           setUser(response.data);
           setLoggedIn(true);
         } else {
@@ -52,7 +51,6 @@ const Navbar = () => {
         return res.json();
       })
       .then((response) => {
-        console.log(response);
         if (response.ok) {
           window.location.href = "/auth/signin";
         }
