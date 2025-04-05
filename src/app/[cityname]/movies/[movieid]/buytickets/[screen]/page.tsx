@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 const SelectScreen = () => {
@@ -3901,10 +3900,10 @@ const SelectScreen = () => {
     ],
   };
 
-  const [selectedTime, setSelectedTime] = React.useState<any>(
+  const [selectedTime, setSelectedTime] = useState<any>(
     screen.timeslots[0]
   );
-  const [selectedSeats, setSelectedSeats] = React.useState<any[]>([]);
+  const [selectedSeats, setSelectedSeats] = useState<any[]>([]);
 
   const selectdeselectseat = (seat: any) => {
     const isselected = selectedSeats.find((s: any) => {

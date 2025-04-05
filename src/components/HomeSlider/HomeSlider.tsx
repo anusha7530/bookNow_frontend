@@ -8,7 +8,6 @@ import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
 
 const HomeSlider = () => {
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [banners, setBanners] = useState([
     {
       imgUrl: 'https://assets-in.bmscdn.com/promotions/cms/creatives/1740735555492_cinepolisweb.jpg'

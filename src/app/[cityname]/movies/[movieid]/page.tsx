@@ -1,9 +1,8 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsShare } from "react-icons/bs";
 import { BsFillStarFill } from "react-icons/bs";
 import MovieCarousel from "@/components/MovieCarousel/MovieCarousel";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,7 +15,7 @@ import { CelebrityCardType } from "@/types/types";
 const MoviePage = () => {
   const pathname = usePathname();
   const { movieid } = useParams();
-  const [movie, setMovie] = React.useState<any>(null);
+  const [movie, setMovie] = useState<any>(null);
   const getMovie = async () => {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/movie/movies/${movieid}`, {
       method: "GET",
