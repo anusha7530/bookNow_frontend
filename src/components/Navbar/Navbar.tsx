@@ -116,7 +116,7 @@ const Navbar = () => {
                 Login
               </Link>
             )}
-            <Link href="/" className="hidden lg:flex items-center gap-1">
+            <Link href="/profile" className="lg:flex items-center gap-1">
               <BiUserCircle className="text-2xl" />
             </Link>
           </div>

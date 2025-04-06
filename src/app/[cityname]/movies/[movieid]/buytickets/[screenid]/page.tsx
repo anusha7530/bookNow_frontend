@@ -179,7 +179,7 @@ const SelectScreen = () => {
       .then((response) => {
         if (response.ok) {
           toast.success("Booking Successful");
-          window.location.reload();
+          window.location.href = "/profile";
         }
       })
       .catch((err) => console.log(err));
