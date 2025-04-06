@@ -47,7 +47,18 @@ const Buytickets = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        if (data.ok) setTheatres(data.data);
+        if (data.ok) {
+          console.log(data.data);
+          const filterData = data.data.filter((item:any, index:any, self:any) => {
+            return (
+              index ===
+              self.findIndex(
+                (obj:any) => obj.name === item.name && obj.location === item.location
+              )
+            );
+          });
+          setTheatres(filterData)
+        };
       })
       .catch((err) => {
         console.log(err);
@@ -62,9 +73,6 @@ const Buytickets = () => {
     getTheatres(selectedDate);
   }, [selectedDate]);
 
-  const selectedDay = (val: string) => {
-    console.log(val);
-  };
   return (
     <>
       {movie && (

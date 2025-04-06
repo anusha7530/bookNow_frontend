@@ -116,9 +116,10 @@ const Navbar = () => {
                 Login
               </Link>
             )}
-            <Link href="/profile" className="lg:flex items-center gap-1">
+            {loggedIn && <Link href="/profile" className="flex flex-row items-center gap-1 lg:p-2 pt-4">
               <BiUserCircle className="text-2xl" />
-            </Link>
+              <h1>{user.name}</h1>
+            </Link>}
           </div>
         </div>
         {showLocationPopup && (
