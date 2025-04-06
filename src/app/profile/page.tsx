@@ -78,12 +78,12 @@ const ProfilePage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               <div className="detail">
                 <h3 className="text-sm font-medium text-[#b92d14e8]">Movie</h3>
-                <p className="text-base text-gray-800">{booking.movieId}</p>
+                <p className="text-base text-gray-800">{booking.movieName}</p>
               </div>
 
               <div className="detail">
                 <h3 className="text-sm font-medium text-[#b92d14e8]">Screen</h3>
-                <p className="text-base text-gray-800">{booking.screenId}</p>
+                <p className="text-base text-gray-800">{booking.screenName}</p>
               </div>
 
               <div className="detail">

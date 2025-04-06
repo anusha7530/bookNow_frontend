@@ -169,6 +169,8 @@ const SelectScreen = () => {
         showDate: date,
         movieId: movieid,
         screenId: screenid,
+        movieName: movie.title,
+        screenName: screen.screen.name,
         seats: selectedSeats,
         totalPrice: selectedSeats.reduce((acc, seat) => acc + seat.price, 0),
         paymentId: "123456789",
