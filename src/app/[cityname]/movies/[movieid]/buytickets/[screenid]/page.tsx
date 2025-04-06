@@ -94,7 +94,7 @@ const SelectScreen = () => {
         key={index}
       >
         <h2 className="text-sm md:text-base font-medium border border-gray-300 rounded-full px-4 py-1 w-fit">
-          {seatType.type} - Rs. {seatType.price}
+          {seatType.type.toUpperCase()} - Rs. {seatType.price}
         </h2>
         <div className="flex-col gap-4 mt-3">
           {seatType.rows.map((row: any, rowIndex: number) => (
@@ -157,6 +157,33 @@ const SelectScreen = () => {
     ));
   };
 
+  const handleBooking = () => {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/movie/bookticket`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        showTime: selectedTime.showTime,
+        showDate: date,
+        movieId: movieid,
+        screenId: screenid,
+        seats: selectedSeats,
+        totalPrice: selectedSeats.reduce((acc, seat) => acc + seat.price, 0),
+        paymentId: "123456789",
+        paymentType: "online",
+      }),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.ok) {
+          toast.success("Booking Successful");
+          window.location.reload();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="min-h-screen w-full bg-gray-100">
       {/* Header */}
@@ -164,10 +191,10 @@ const SelectScreen = () => {
         <div className="bg-white">
           <div className="bg-[#b92d14e8] p-3">
             <h1 className="text-base md:text-lg font-semibold">
-              {movie?.moviename} - {movie?.language}
+              {movie.title} - {screen?.screen?.name}
             </h1>
             <h3 className="text-white text-xs md:text-sm font-semibold border border-white px-3 py-1 rounded-full w-fit mt-1">
-              {movie?.type}
+              {movie.genre.join(" / ")}
             </h3>
           </div>
         </div>
@@ -231,12 +258,12 @@ const SelectScreen = () => {
                 Rs. {selectedSeats.reduce((acc, seat) => acc + seat.price, 0)}
               </h3>
             </div>
-            <Link
-              href="/"
-              className="theme_btn1 linkstylenone text-xs md:text-sm"
+            <button
+              className="text-white bg-[#A74E34] py-2 px-5 rounded-md no-underline hover:bg-[#53362d] transition"
+              onClick={handleBooking}
             >
-              Continue
-            </Link>
+              Book Now
+            </button>
           </div>
         </div>
       )}
