@@ -88,14 +88,13 @@ const Navbar = () => {
             isOpen ? "block" : "hidden"
           } absolute lg:static top-16 left-0 right-0 bg-gray-900 lg:bg-transparent p-4 lg:p-0`}
         >
-          <div className="flex items-center gap-2 bg-gray-700 px-4 py-2 rounded-lg">
-            <BiSearch className="text-lg" />
-            <input
-              type="text"
-              placeholder="Search for a Movie"
-              className="bg-transparent outline-none placeholder-gray-100 text-white"
-            />
-          </div>
+          {/* <div className="flex items-center gap-2 bg-gray-700 px-4 py-2 rounded-lg"> */}
+          <button className="bg-[#b92d14e8] px-4 py-2 rounded-lg">
+            <Link href={`${process.env.NEXT_PUBLIC_ADMIN}`}>
+              Become an Admin
+            </Link>
+          </button>
+          {/* </div> */}
           <p
             className="flex items-center cursor-pointer px-4 py-2 border-2 border-[#b92d14e8] rounded-lg"
             onClick={() => setShowLocationPopup(true)}
