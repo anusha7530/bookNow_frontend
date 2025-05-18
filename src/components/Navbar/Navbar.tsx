@@ -7,6 +7,7 @@ import Image from "next/image";
 import logo from "../../../public/logo.png";
 import LocationPopup from "@/app/popups/location/LocationPopup";
 import { Menu, X } from "lucide-react";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [showLocationPopup, setShowLocationPopup] = useState<boolean>(false);
@@ -51,6 +52,9 @@ const Navbar = () => {
       })
       .then((response) => {
         if (response.ok) {
+          toast.success("User logged out Successful", {
+            position: "top-center",
+          });
           window.location.href = "/auth/signin";
         }
       })
@@ -116,10 +120,15 @@ const Navbar = () => {
                 Login
               </Link>
             )}
-            {loggedIn && <Link href="/profile" className="flex flex-row items-center gap-1 lg:p-2 pt-4">
-              <BiUserCircle className="text-2xl" />
-              <h1>{user.name}</h1>
-            </Link>}
+            {loggedIn && (
+              <Link
+                href="/profile"
+                className="flex flex-row items-center gap-1 lg:p-2 pt-4"
+              >
+                <BiUserCircle className="text-2xl" />
+                <h1>{user.name}</h1>
+              </Link>
+            )}
           </div>
         </div>
         {showLocationPopup && (
