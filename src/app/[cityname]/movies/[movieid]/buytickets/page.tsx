@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import DatePicker from "react-horizontal-datepicker";
-import 'react-horizontal-datepicker/dist/react-horizontal-datepicker.css';
 import Link from "next/link";
 
 const Buytickets = () => {
