@@ -1,9 +1,9 @@
 "use client";
 import { usePathname, useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import DatePicker from "react-horizontal-datepicker";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { addDays } from 'date-fns';
 import Link from "next/link";
 
 const Buytickets = () => {
@@ -51,16 +51,19 @@ const Buytickets = () => {
       .then((data) => {
         if (data.ok) {
           console.log(data.data);
-          const filterData = data.data.filter((item:any, index:any, self:any) => {
-            return (
-              index ===
-              self.findIndex(
-                (obj:any) => obj.name === item.name && obj.location === item.location
-              )
-            );
-          });
-          setTheatres(filterData)
-        };
+          const filterData = data.data.filter(
+            (item: any, index: any, self: any) => {
+              return (
+                index ===
+                self.findIndex(
+                  (obj: any) =>
+                    obj.name === item.name && obj.location === item.location
+                )
+              );
+            }
+          );
+          setTheatres(filterData);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -89,54 +92,50 @@ const Buytickets = () => {
                 {movie.genre.join(",")}
               </h3>
             </div>
-
+ 
             {/* Date Picker Section */}
-            <div className="p-4">
+            <div className="p-4 text-center">
               <DatePicker
-                getSelectedDay={
-                  (date: any) => {
-                      setSelectedDate(date)
-                  }
-              }
-                endDate={100}
-                selectDate={selectedDate}
-                labelFormat={"MMMM"}
-                color={"rgb(167 78 52)"}
+                showIcon
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                minDate={new Date()}
+                maxDate={addDays(new Date(), 50)}
               />
             </div>
           </div>
 
           {/* Screens Section */}
-          {
-            theatres && theatres.length > 0 ?
+          {theatres && theatres.length > 0 ? (
             <div className="w-[90%] mx-auto mt-5 shadow-lg bg-white p-5 rounded-lg">
-            {theatres.map((screen:any, index:any) =>{
-                const screenid = screen._id
-            return (
-              <div
-                key={index}
-                className="flex justify-between items-center p-3 border-b border-gray-200 cursor-pointer transition-all duration-300 hover:bg-gray-100 last:border-b-0"
-              >
-                <div>
-                  <h2 className="text-lg font-semibold">{screen.name}</h2>
-                  <h3 className="text-sm font-semibold text-gray-500">
-                    {screen.location}
-                  </h3>
-                </div>
-                <Link
-                  href={`${pathname}/${screenid}?date=${selectedDate}`}
-                  className="text-white bg-[#A74E34] py-2 px-5 rounded-md no-underline hover:bg-[#53362d] transition"
-                >
-                  Select
-                </Link>
-              </div>
-            )})}
-          </div>
-          :
-          <div className="w-[90%] mx-auto mt-5 shadow-lg bg-white p-5 rounded-lg">
-            <h1>No shows available</h1>
-          </div>
-          }
+              {theatres.map((screen: any, index: any) => {
+                const screenid = screen._id;
+                return (
+                  <div
+                    key={index}
+                    className="flex justify-between items-center p-3 border-b border-gray-200 cursor-pointer transition-all duration-300 hover:bg-gray-100 last:border-b-0"
+                  >
+                    <div>
+                      <h2 className="text-lg font-semibold">{screen.name}</h2>
+                      <h3 className="text-sm font-semibold text-gray-500">
+                        {screen.location}
+                      </h3>
+                    </div>
+                    <Link
+                      href={`${pathname}/${screenid}?date=${selectedDate}`}
+                      className="text-white bg-[#A74E34] py-2 px-5 rounded-md no-underline hover:bg-[#53362d] transition"
+                    >
+                      Select
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="w-[90%] mx-auto mt-5 shadow-lg bg-white p-5 rounded-lg">
+              <h1>No shows available</h1>
+            </div>
+          )}
         </div>
       )}
     </>
